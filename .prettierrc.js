@@ -14,6 +14,7 @@ const config = {
     'lib/',
     'store/',
     'hooks/',
+    'providers/',
     'components/',
   ],
   importOrderSeparation: true,

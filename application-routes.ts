@@ -1,36 +1,9 @@
 export type Empty = Record<PropertyKey, never>;
 
 export interface ApplicationRoutes {
-  '/': Empty;
-
-  '/sign-up': Empty;
-  '/sign-in': Empty;
-
-  '/organization/[organizationId]': {
-    params: { organizationId: string };
-  };
-  '/organization/[organizationId]/activity': {
-    params: { organizationId: string };
-  };
-  '/organization/[organizationId]/settings': {
-    params: { organizationId: string };
-  };
-  '/organization/[organizationId]/billing': {
-    params: { organizationId: string };
-  };
-
-  '/board/[boardId]': {
-    params: { boardId: string };
-  };
-
-  '/api/cards/[cardId]': {
-    params: { cardId: string };
-  };
-  '/api/cards/[cardId]/audit-logs': {
-    params: { cardId: string };
-  };
-
-  '/select-org': Empty;
+  '/agency': Partial<{
+    options?: { query: { plan: string } };
+  }>;
 }
 
 export type ApplicationPath = keyof ApplicationRoutes;
