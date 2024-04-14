@@ -1,3 +1,5 @@
+import { ClerkProvider } from '@clerk/nextjs';
+import { dark } from '@clerk/themes';
 import React from 'react';
 
 import Navigation from '@/components/site/navigation';
@@ -8,10 +10,12 @@ type SiteLayoutProps = {
 
 const SiteLayout = ({ children }: SiteLayoutProps) => {
   return (
-    <main className="h-full">
-      <Navigation />
-      {children}
-    </main>
+    <ClerkProvider appearance={{ baseTheme: dark }}>
+      <main className="h-full">
+        <Navigation />
+        {children}
+      </main>
+    </ClerkProvider>
   );
 };
 

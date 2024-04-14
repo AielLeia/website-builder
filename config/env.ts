@@ -10,10 +10,10 @@ export const EnvConfig = createEnv({
     UPLOADTHING_APP_ID: z.string().readonly(),
     STRIPE_SECRET_KEY: z.string().readonly(),
     STRIPE_WEBHOOK_SECRET: z.string().readonly(),
-    DATABASE_URL: z.string().url().readonly(),
-    SHADOW_DATABASE_URL: z.string().url().readonly(),
-    PROD_DATABASE_URL: z.string().url().readonly(),
-    LOCAL_DATABASE_URL: z.string().url().readonly(),
+    DATABASE_URL: z.string().readonly(),
+    SHADOW_DATABASE_URL: z.string().readonly(),
+    PROD_DATABASE_URL: z.string().readonly(),
+    LOCAL_DATABASE_URL: z.string().readonly(),
   },
 
   client: {
@@ -27,9 +27,9 @@ export const EnvConfig = createEnv({
     NEXT_PUBLIC_SCHEME: z.string().readonly(),
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().readonly(),
     NEXT_PUBLIC_STRIPE_CLIENT_ID: z.string().readonly(),
-    NEXT_PUBLIC_PLATFORM_SUBSCRIPTION_PERCENT: z.number().readonly(),
-    NEXT_PUBLIC_PLATFORM_ONETIME_FEE: z.number().readonly(),
-    NEXT_PUBLIC_PLATFORM_AGENCY_PERCENT: z.number().readonly(),
+    NEXT_PUBLIC_PLATFORM_SUBSCRIPTION_PERCENT: z.string().readonly(),
+    NEXT_PUBLIC_PLATFORM_ONETIME_FEE: z.string().readonly(),
+    NEXT_PUBLIC_PLATFORM_AGENCY_PERCENT: z.string().readonly(),
     NEXT_PUBLIC_BUILDER_API_KEY: z.string().readonly(),
   },
 
