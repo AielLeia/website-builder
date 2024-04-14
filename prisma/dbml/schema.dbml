@@ -1,0 +1,429 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  name String [not null]
+  avatarUrl String [not null]
+  email String [unique, not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  role Role [not null, default: 'SubaccountUser']
+  agencyId String
+  agency Agency
+  permissions Permissions [not null]
+  tickets Ticket [not null]
+  notifications Notification [not null]
+}
+
+Table Permissions {
+  id String [pk]
+  email String [not null]
+  user User [not null]
+  subAccountId String [not null]
+  subAccount SubAccount [not null]
+}
+
+Table Agency {
+  id String [pk]
+  connectAccountId String [default: '']
+  customerId String [not null, default: '']
+  name String [not null]
+  agencyLogo String [not null]
+  companyEmail String [not null]
+  companyPhone String [not null]
+  whiteLabel Boolean [not null, default: true]
+  address String [not null]
+  city String [not null]
+  zipCode String [not null]
+  state String [not null]
+  country String [not null]
+  goal Int [not null, default: 5]
+  users User [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subAccounts SubAccount [not null]
+  sidebarOptions AgencySidebarOption [not null]
+  invitations Invitation [not null]
+  notifications Notification [not null]
+  subscription Subscription
+  addOns AddOns [not null]
+}
+
+Table SubAccount {
+  id String [pk]
+  connectAccountId String [default: '']
+  name String [not null]
+  subAccountLogo String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  companyEmail String [not null]
+  companyPhone String [not null]
+  goal Int [not null, default: 5]
+  address String [not null]
+  city String [not null]
+  zipCode String [not null]
+  state String [not null]
+  country String [not null]
+  agencyId String [not null]
+  agency Agency [not null]
+  sidebarOption SubAccountSidebarOption [not null]
+  permissions Permissions [not null]
+  funnels Funnel [not null]
+  medias Media [not null]
+  contacts Contact [not null]
+  triggers Trigger [not null]
+  automations Automation [not null]
+  pipelines Pipeline [not null]
+  tags Tag [not null]
+  notifications Notification [not null]
+}
+
+Table Tag {
+  id String [pk]
+  name String [not null]
+  color String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subAccountId String [not null]
+  subAccount SubAccount [not null]
+  tickets Ticket [not null]
+}
+
+Table Pipeline {
+  id String [pk]
+  name String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  lanes Lane [not null]
+  subAccount SubAccount [not null]
+  subAccountId String [not null]
+}
+
+Table Lane {
+  id String [pk]
+  name String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  pipeline Pipeline [not null]
+  pipelineId String [not null]
+  tickets Ticket [not null]
+  order Int [not null, default: 0]
+}
+
+Table Ticket {
+  id String [pk]
+  name String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  laneId String [not null]
+  order Int [not null, default: 0]
+  lane Lane [not null]
+  value Decimal
+  description String
+  tags Tag [not null]
+  customerId String
+  Customer Contact
+  assignedUserId String
+  Assigned User
+}
+
+Table Trigger {
+  id String [pk]
+  name String [not null]
+  type TriggerTypes [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subAccountId String [not null]
+  subaccount SubAccount [not null]
+  automations Automation [not null]
+}
+
+Table Automation {
+  id String [pk]
+  name String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  triggerId String
+  published Boolean [not null, default: false]
+  trigger Trigger
+  subAccountId String [not null]
+  subaccount SubAccount [not null]
+  actions Action [not null]
+  automationInstances AutomationInstance [not null]
+}
+
+Table AutomationInstance {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  automationId String [not null]
+  automation Automation [not null]
+  active Boolean [not null, default: false]
+}
+
+Table Action {
+  id String [pk]
+  name String [not null]
+  type ActionType [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  automationId String [not null]
+  order Int [not null]
+  automation Automation [not null]
+  laneId String [not null, default: '0']
+}
+
+Table Contact {
+  id String [pk]
+  name String [not null]
+  email String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subAccountId String [not null]
+  subaccount SubAccount [not null]
+  tickets Ticket [not null]
+}
+
+Table Media {
+  id String [pk]
+  type String
+  name String [not null]
+  link String [unique, not null]
+  subAccountId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subAccount SubAccount [not null]
+}
+
+Table Funnel {
+  id String [pk]
+  name String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  description String
+  published Boolean [not null, default: false]
+  subDomainName String [unique]
+  favicon String
+  subAccountId String [not null]
+  subAccount SubAccount [not null]
+  funnelPages FunnelPage [not null]
+  liveProducts String [default: '[]']
+  className ClassName [not null]
+}
+
+Table ClassName {
+  id String [pk]
+  name String [not null]
+  color String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  funnelId String [not null]
+  customData String
+  funnel Funnel [not null]
+}
+
+Table FunnelPage {
+  id String [pk]
+  name String [not null]
+  pathName String [not null, default: '']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  visits Int [not null, default: 0]
+  content String
+  order Int [not null]
+  previewImage String
+  funnelId String [not null]
+  funnel Funnel [not null]
+}
+
+Table AgencySidebarOption {
+  id String [pk]
+  name String [not null, default: 'Menu']
+  link String [not null, default: '#']
+  icon Icon [not null, default: 'info']
+  agencyId String [not null]
+  agency Agency
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table SubAccountSidebarOption {
+  id String [pk]
+  name String [not null, default: 'Menu']
+  link String [not null, default: '#']
+  icon Icon [not null, default: 'info']
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  subAccount SubAccount
+  subAccountId String
+}
+
+Table Invitation {
+  id String [pk]
+  email String [unique, not null]
+  agencyId String [not null]
+  agency Agency [not null]
+  status InvitationStatus [not null, default: 'Pending']
+  role Role [not null, default: 'SubaccountUser']
+}
+
+Table Notification {
+  id String [pk]
+  notification String [not null]
+  agencyId String [not null]
+  subAccountId String
+  userId String [not null]
+  user User [not null]
+  agency Agency [not null]
+  subAccount SubAccount
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+}
+
+Table Subscription {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  plan Plan
+  price String
+  active Boolean [not null, default: false]
+  priceId String [not null]
+  customerId String [not null]
+  currentPeriodEndDate DateTime [not null]
+  subscritiptionId String [unique, not null]
+  agencyId String [unique]
+  agency Agency
+}
+
+Table AddOns {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  active Boolean [not null, default: false]
+  priceId String [unique, not null]
+  agencyId String
+  agency Agency
+}
+
+Table TagToTicket {
+  ticketsId String [ref: > Ticket.id]
+  tagsId String [ref: > Tag.id]
+}
+
+Enum Role {
+  AgencyOwner
+  AgencyAdmin
+  SubaccountUser
+  SubaccountGuest
+}
+
+Enum Icon {
+  settings
+  chart
+  calendar
+  check
+  chip
+  compass
+  database
+  flag
+  home
+  info
+  link
+  lock
+  messages
+  notification
+  payment
+  power
+  receipt
+  shield
+  star
+  tune
+  videorecorder
+  wallet
+  warning
+  headphone
+  send
+  pipelines
+  person
+  category
+  contact
+  clipboardIcon
+}
+
+Enum TriggerTypes {
+  ContactForm
+}
+
+Enum ActionType {
+  CreateContact
+}
+
+Enum InvitationStatus {
+  Accepted
+  Revoked
+  Pending
+}
+
+Enum Plan {
+  price_1OYxkqFj9oKEERu1NbKUxXxN
+  price_1OYxkqFj9oKEERu1KfJGWxgN
+}
+
+Ref: User.agencyId > Agency.id [delete: Cascade]
+
+Ref: Permissions.email > User.email [delete: Cascade]
+
+Ref: Permissions.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: SubAccount.agencyId > Agency.id [delete: Cascade]
+
+Ref: Tag.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Pipeline.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Lane.pipelineId > Pipeline.id [delete: Cascade]
+
+Ref: Ticket.laneId > Lane.id [delete: Cascade]
+
+Ref: Ticket.customerId > Contact.id [delete: Set Null]
+
+Ref: Ticket.assignedUserId > User.id [delete: Set Null]
+
+Ref: Trigger.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Automation.triggerId > Trigger.id [delete: Cascade]
+
+Ref: Automation.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: AutomationInstance.automationId > Automation.id [delete: Cascade]
+
+Ref: Action.automationId > Automation.id [delete: Cascade]
+
+Ref: Contact.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Media.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Funnel.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: ClassName.funnelId > Funnel.id [delete: Cascade]
+
+Ref: FunnelPage.funnelId > Funnel.id [delete: Cascade]
+
+Ref: AgencySidebarOption.agencyId > Agency.id [delete: Cascade]
+
+Ref: SubAccountSidebarOption.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Invitation.agencyId > Agency.id [delete: Cascade]
+
+Ref: Notification.userId > User.id [delete: Cascade]
+
+Ref: Notification.agencyId > Agency.id [delete: Cascade]
+
+Ref: Notification.subAccountId > SubAccount.id [delete: Cascade]
+
+Ref: Subscription.agencyId - Agency.id
+
+Ref: AddOns.agencyId > Agency.id
